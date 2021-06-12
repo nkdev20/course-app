@@ -26,6 +26,25 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
+            "optimization": false,
+            "outputHashing": "all",
+            "sourceMap": true,
+            "namedChunks": false,
+            "extractLicenses": true,
+            "vendorChunk": false,
+            "buildOptimizer": false,
+            "budgets": [
+              {
+                "type": "initial",
+                "maximumWarning": "500kb",
+                "maximumError": "1mb"
+              },
+              {
+                "type": "anyComponentStyle",
+                "maximumWarning": "2kb",
+                "maximumError": "4kb"
+              }
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -36,16 +55,16 @@
             "scripts": []
           },
           "configurations": {
-            "production": {
+            "dev": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "with": "src/environments/environment.dev.ts"
                 }
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -62,17 +81,32 @@
                   "maximumError": "4kb"
                 }
               ]
+            },
+            "prod": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "sourceMap": false,
+              "buildOptimizer": true,
+              "optimization": true
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "course-app:build"
+            "browserTarget": "course-app:build",
+            "port": 5200
           },
           "configurations": {
-            "production": {
-              "browserTarget": "course-app:build:production"
+            "prod": {
+              "browserTarget": "course-app:build:prod"
+            },
+            "dev": {
+              "browserTarget": "course-app:build:dev"
             }
           }
         },
